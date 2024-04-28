@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css"
+            rel="stylesheet"
+    />
+</head>
+<body>
+<a th:href="@{/utilisateurs/ajouter}" class="btn btn-success offset-10 mt-4" data-mdb-ripple-init>Ajouter</a>
+
+<!--<div th:if="${message}" class="alert alert-success text-center">-->
+<!--    [[${message}]]-->
+<!--</div>-->
+<div th:if="${message}" class="alert alert-success alert-dismissible text-center" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        ❌
+    </button>
+    [[${message}]]
+</div>
+
+<div class="container-fluid">
+    <table class="table align-middle mb-0 bg-white table table-bordered mt-4">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Date d'insription</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- etudiantList c celui qui se trouve dans model.addAttribute() dans la fonction showEtudiantList         -->
+        <th:block th:each="utilisateur :${ListUtilisateurs}">
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <p class="fw-bold mb-1"># [[${utilisateur.id}]]</p>
+                    </div>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">[[${utilisateur.prenom}]]</p>
+
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">[[${utilisateur.nom}]]</p>
+                </td>
+                <td>[[${utilisateur.email}]]</td>
+                <td>[[${utilisateur.age}]]</td>
+                <td>[[${utilisateur.date_insctit}]]</td>
+
+                <td>
+                    <a th:href="@{'/utilisateurs/modifier/'+ ${utilisateur.id} }" type="button" class="btn btn-link btn-sm btn-warning">
+                        Edit
+                    </a>
+                    <a th:href="@{'/utilisateurs/supprimer/'+${utilisateur.id} }" type="button" class="btn btn-link btn-sm btn-danger">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

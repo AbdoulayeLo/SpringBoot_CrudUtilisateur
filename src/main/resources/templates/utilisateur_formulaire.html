@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <title>[[${pageTitle}]]</title>-->
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css"
+            rel="stylesheet"
+    />
+</head>
+
+<body>
+
+<div class="container h-100 mt-5">
+<!--    <h2 align="center">[[${pageTitle}]]</h2>-->
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div class="card-header">
+        <div class="card-body mb-5"  style="box-shadow: 1px 1px 1px 1px; max-width: 800px; margin: 0 auto" >
+            <!--     ${utilisateurs} est celui qui se trouve dans model.addAttribute(utilisateurs) dans la fonction Ajouterutilisateur      -->
+            <form th:action="@{/utilisateurs/save}" method="post" th:object="${utilisateurs}"
+                  style="max-width: 500px; margin: 0 auto"
+            >
+                <div class="mb-3">
+                    <label for="exampleInputPassword0" class="form-label">Prenom</label>
+                    <input type="text" class="form-control" id="exampleInputPassword0"  th:field="*{prenom}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1"  th:field="*{nom}"  required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" th:field="*{email}" required minlength="10" maxlength="20">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputAge" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="exampleInputAge" th:field="*{age}" maxlength="2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputDate" class="form-label">Date d'inscription</label>
+                    <input type="date" class="form-control" id="exampleInputDate" th:field="*{date_insctit}" required>
+                </div>
+                <div align="center">
+                    <button type="submit" class="btn btn-primary  mb-4 mt-4">Submit</button>
+                    <button type="button" class="btn btn-danger  mb-4 mt-4" onclick="fermeture()">Fermer</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    function generateMatricule() {
+        var prenom = document.getElementById("exampleInputPassword0").value;
+        var nom = document.getElementById("exampleInputPassword1").value;
+        var matricule = prenom.substring(0, 3).toUpperCase() + nom.substring(0, 3).toUpperCase() + Math.floor(Math.random() * 1000);
+        document.getElementById("exampleInputPassword2").value = matricule;
+    }
+</script>
+<!--onkeyup="genererMatricule()" dans prenom et nom-->
+<script type="text/javascript">
+    function fermeture() {
+        window.location=  "[[@{/utilisateurs}]]";
+
+    }
+</script>
+</body>
+</html>
